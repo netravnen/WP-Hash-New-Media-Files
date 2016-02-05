@@ -3,7 +3,7 @@
  * Plugin Name: Hash Upload Filename
  * Plugin URI: https://gist.github.com/Jeni4/41630a174c95d9303a63
  * Description: Rename uploaded files to something completely random based on filename, current time in seconds since 1-1-1970, 5 different $_SERVER[] values and different ways of using the sha1() + md5() functions.
- * Version: 1.0
+ * Version: 1.1.0
  * Author: Jeni4
  * Author URI: https://github.com/Jeni4/
  */
@@ -12,7 +12,23 @@ function my_hashing($hash) {
 	$to_be_hashed = md5(time())+$hash+sha1($_SERVER['HTTP_HOST'])+md5($_SERVER['HTTP_USER_AGENT']);
 	$salt = sha1(md5($hash)+sha1(time()))+sha1($_SERVER['REMOTE_ADDR']+$_SERVER['REMOTE_PORT']+$_SERVER['SERVER_PORT']);
 	
-	$hashed_value = md5(sha1(crypt( $to_be_hashed, $salt )));
+	$session_values = $_SERVER['SERVER_SOFTWARE']+
+		$_SERVER['SERVER_ADDR']+
+		$_SERVER['SERVER_PORT']+
+		$_SERVER['REMOTE_ADDR']+
+		$_SERVER['REMOTE_PORT']+
+		$_SERVER['HTTP_USER_AGENT']+
+		$_SERVER['HTTP_HOST']+
+		$_SERVER['HTTP_REFERER']+
+		$_SERVER['REQUEST_TIME']+
+		$_SERVER['REQUEST_TIME_FLOAT']+
+		$_SERVER['REQUEST_METHOD'];
+	
+	// http://php.net/manual/en/function.crypt.php
+	// http://php.net/manual/en/function.sha1.php
+	// http://php.net/manual/en/function.md5.php
+	// http://php.net/manual/en/function.hash.php
+	$hashed_value = hash('sha256', md5(sha1($session_values) + sha1(crypt( $to_be_hashed, $salt ))) );
 	
 	return $hashed_value;
 }
