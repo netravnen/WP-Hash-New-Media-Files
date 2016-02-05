@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name: Hash Upload Filename
- * Plugin URI:
- * Description: Rename uploaded files as the hash of their original.
+ * Plugin URI: https://gist.github.com/Jeni4/41630a174c95d9303a63
+ * Description: Rename uploaded files to something completely random based on filename, current time in seconds since 1-1-1970, 5 different $_SERVER[] values and different ways of using the sha1() + md5() functions.
  * Version: 1.0
+ * Author: Jeni4
+ * Author URI: https://github.com/Jeni4/
  */
 
 function my_hashing($hash) {
