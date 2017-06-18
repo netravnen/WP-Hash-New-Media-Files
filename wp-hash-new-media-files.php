@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Hash Upload Filename
- * Plugin URI: https://gist.github.com/netravnen/41630a174c95d9303a63
+ * Plugin Name: WP Hash New Media Files
+ * Plugin URI: https://github.com/netravnen/WP-Hash-New-Media-Files
  * Description: Rename uploaded files to something completely random based on filename, current time in seconds since 1-1-1970, 5 different $_SERVER[] values and different ways of using the sha1() + md5() functions.
  * Version: 1.1.1
  * Author: netravnen
